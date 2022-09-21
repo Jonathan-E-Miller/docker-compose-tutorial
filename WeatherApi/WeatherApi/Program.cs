@@ -7,6 +7,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Important - this API is running in it's own container. A separate, independent container is running SEQ, therefore it cannot be accessed
+// through localhost:5341. To work around this, we can use the host.docker.internal instead of localhost. 
+builder.Services.AddLogging(o => o.AddSeq("http://host.docker.internal:5341"));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
