@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  weatherapi:
+    image: ${DOCKER_REGISTRY-}weatherapi
+    build:
+      context: .
+      dockerfile: WeatherApi/Dockerfile
+
+  seq:
+    image: datalust/seq:latest
+    restart: unless-stopped
+    ports: 
+      - "5342:80"
+    environment:
+      - ACCEPT_EULA=Y
